@@ -1,4 +1,6 @@
-# Zend Expressive Authentication
+# PSR-7 Authentication via Aura.Auth
+
+Currently only works with Zend Expressive. If other PSR-7 based libraries / frameworks integrates two (the next PSR's according to my opinion)  [TemplateRendererInterface](https://github.com/zendframework/zend-expressive-template) and [RouterInterface](https://github.com/zendframework/zend-expressive-router), this library will work for everyone.
 
 [Experimental Version].
 
