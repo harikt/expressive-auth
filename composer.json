@@ -1,0 +1,32 @@
+{
+    "name": "hkt/expressive-auth",
+    "description": "Zend Expressive authentication via Aura.Auth",
+    "type": "library",
+    "homepage": "https://github.com/harikt",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hari KT",
+            "homepage": "http://harikt.com/"
+        }
+    ],
+    "require": {
+        "php": "^5.5 || ^7.0",
+        "aura/auth": "^2.0",
+        "aura/di": "^3.0",        
+        "zendframework/zend-expressive-template": "^1.0",
+        "zendframework/zend-expressive-router": "^1.0"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Hkt\\ExpressiveAuth\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Hkt\\ExpressiveAuth\\": "tests/"
+        }
+    }
+}
