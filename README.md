@@ -19,6 +19,8 @@ composer require htk/expressive-auth
 Currently supports only Aura.Di. You may want to add / configure for other dependency injection containers.
 
 ```php
+// In /config/container.php
+
 class_alias('Aura\Di\ContainerConfig', 'Aura\Di\Config');
 
 $configClasses = [    
@@ -39,6 +41,8 @@ In your `App\Di\Config` you may want to add the adapter you are going to use. Pl
 Example below is for `Aura\Auth\Adapter\PdoAdapter`.
 
 ```php
+// In your App\Di\Config define()
+
 $di->set('aura/auth:adapter', $di->lazyNew('Aura\Auth\Adapter\PdoAdapter'));
 $di->params['Aura\Auth\Adapter\PdoAdapter']['pdo'] = $di->lazyGet('Aura\Sql\ExtendedPdo');
 $di->params['Aura\Auth\Verifier\PasswordVerifier'] = array(
@@ -66,7 +70,7 @@ $di->params['Hkt\ExpressiveAuth\Action\LogoutAction']['redirectTo'] = 'login';
 
 The love for templates differ for users and projects. You can choose anything that supports [zend-expressive-template](https://github.com/zendframework/zend-expressive-template)
 
-In your expressive `config/autoload/templates.global.php` file you can set the path to template as
+In your expressive `/config/autoload/templates.global.php` file you can set the path to template as
 
 ```php
     'templates' => [        
