@@ -7,15 +7,15 @@ use Zend\Expressive\Router\Route;
 
 class RoutesConfig extends ContainerConfig
 {
-	public function define(Container $di)
-	{
-	}
+    public function define(Container $di)
+    {
+    }
 
-	public function modify(Container $di)
-	{
-		$router = $di->get('Zend\Expressive\Router\RouterInterface');
+    public function modify(Container $di)
+    {
+        $router = $di->get('Zend\Expressive\Router\RouterInterface');
 
-		$router->addRoute(new Route('/login', 'Hkt\ExpressiveAuth\Action\LoginAction', ['GET', 'POST'], 'hkt/expressive-auth:login'));
-		$router->addRoute(new Route('/logout', 'Hkt\ExpressiveAuth\Action\LogoutAction', ['GET'], 'hkt/expressive-auth:logout'));
-	}
+        $router->addRoute(new Route('/login', 'Hkt\ExpressiveAuth\Action\LoginAction', ['GET', 'POST'], 'hkt/expressive-auth:login'));
+        $router->addRoute(new Route('/logout', 'Hkt\ExpressiveAuth\Action\LogoutAction', ['GET'], 'hkt/expressive-auth:logout'));
+    }
 }

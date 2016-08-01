@@ -17,61 +17,61 @@ use Exception;
 
 class LoginAction
 {
-	protected $user;
+    protected $user;
 
-	protected $router;
+    protected $router;
 
-	protected $template;
+    protected $template;
 
     protected $redirectTo;
 
-	public function __construct(
-		UserService $user,
-		RouterInterface $router,
-		TemplateRendererInterface $template,
+    public function __construct(
+        UserService $user,
+        RouterInterface $router,
+        TemplateRendererInterface $template,
         $redirectTo = 'hkt/expressive-auth:home'
-	) {
-		$this->user = $user;
-		$this->router = $router;
-		$this->template = $template;
+    ) {
+        $this->user = $user;
+        $this->router = $router;
+        $this->template = $template;
         $this->redirectTo = $redirectTo;
-	}
+    }
 
-	public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
-	{
-		$data = [];
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
+    {
+        $data = [];
 
-		if ($this->user->isValid()) {
-			return $response->withHeader('Location', $this->router->generateUri($this->redirectTo));
-		}
+        if ($this->user->isValid()) {
+            return $response->withHeader('Location', $this->router->generateUri($this->redirectTo));
+        }
 
-		if ($request->getMethod() == 'POST') {
-			try {
-				$post = $request->getParsedBody();
+        if ($request->getMethod() == 'POST') {
+            try {
+                $post = $request->getParsedBody();
                 $this->user->login([
-                	'username' => $post['username'],
-					'password' => $post['password'],
-				]);
+                    'username' => $post['username'],
+                    'password' => $post['password'],
+                ]);
 
-				return $response->withHeader('Location', $this->router->generateUri($this->redirectTo));
-				// redirect
-			} catch (UsernameMissing $e) {
-				$data['error'] =  'Username missing';
-			} catch (PasswordMissing $e) {
-				$data['error'] =  'Password missing';
-			} catch (UsernameNotFound $e) {
-				$data['error'] =  'Username not found';
-			} catch (MultipleMatches $e) {
-				$data['error'] =  'Multiple matches found';
-			} catch (PasswordIncorrect $e) {
-				$data['error'] =  'Password is incorrect';
-			} catch (ConnectionFailed $e) {
-				$data['error'] = 'Connection failure';
-			} catch (Exception $e) {
-				$data['error'] = 'Some error occured';
-			}
-		}
+                return $response->withHeader('Location', $this->router->generateUri($this->redirectTo));
+                // redirect
+            } catch (UsernameMissing $e) {
+                $data['error'] =  'Username missing';
+            } catch (PasswordMissing $e) {
+                $data['error'] =  'Password missing';
+            } catch (UsernameNotFound $e) {
+                $data['error'] =  'Username not found';
+            } catch (MultipleMatches $e) {
+                $data['error'] =  'Multiple matches found';
+            } catch (PasswordIncorrect $e) {
+                $data['error'] =  'Password is incorrect';
+            } catch (ConnectionFailed $e) {
+                $data['error'] = 'Connection failure';
+            } catch (Exception $e) {
+                $data['error'] = 'Some error occured';
+            }
+        }
 
-		return new HtmlResponse($this->template->render('hkt/expressive-auth::login', $data));
-	}
+        return new HtmlResponse($this->template->render('hkt/expressive-auth::login', $data));
+    }
 }

@@ -13,7 +13,7 @@
     "require": {
         "php": "^5.5 || ^7.0",
         "aura/auth": "^2.0",
-        "aura/di": "^3.0",        
+        "aura/di": "^3.0",
         "zendframework/zend-expressive-template": "^1.0",
         "zendframework/zend-expressive-router": "^1.0"
     },
