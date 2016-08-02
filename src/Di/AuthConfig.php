@@ -21,13 +21,13 @@ class AuthConfig extends ContainerConfig
         $di->set('Hkt\ExpressiveAuth\Service\UserService', $di->lazyNew('Hkt\ExpressiveAuth\Service\UserService'));
 
         $di->params['Hkt\ExpressiveAuth\Action\LoginAction'] = [
-            'user' => $di->lazyGet('Hkt\ExpressiveAuth\Service\UserService'),
+            'userService' => $di->lazyGet('Hkt\ExpressiveAuth\Service\UserService'),
             'router' => $di->lazyGet('Zend\Expressive\Router\RouterInterface'),
             'template' => $di->lazyGet('Zend\Expressive\Template\TemplateRendererInterface'),
         ];
 
         $di->params['Hkt\ExpressiveAuth\Action\LogoutAction'] = [
-            'user' => $di->lazyGet('Hkt\ExpressiveAuth\Service\UserService'),
+            'userService' => $di->lazyGet('Hkt\ExpressiveAuth\Service\UserService'),
             'router' => $di->lazyGet('Zend\Expressive\Router\RouterInterface'),
         ];
 

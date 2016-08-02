@@ -17,7 +17,7 @@ use Exception;
 
 class LoginAction
 {
-    protected $user;
+    protected $userService;
 
     protected $router;
 
@@ -26,12 +26,12 @@ class LoginAction
     protected $redirectTo;
 
     public function __construct(
-        UserService $user,
+        UserService $userService,
         RouterInterface $router,
         TemplateRendererInterface $template,
         $redirectTo = 'hkt/expressive-auth:home'
     ) {
-        $this->user = $user;
+        $this->userService = $userService;
         $this->router = $router;
         $this->template = $template;
         $this->redirectTo = $redirectTo;
@@ -41,14 +41,14 @@ class LoginAction
     {
         $data = [];
 
-        if ($this->user->isValid()) {
+        if ($this->userService->isValid()) {
             return $response->withHeader('Location', $this->router->generateUri($this->redirectTo));
         }
 
         if ($request->getMethod() == 'POST') {
             try {
                 $post = $request->getParsedBody();
-                $this->user->login([
+                $this->userService->login([
                     'username' => $post['username'],
                     'password' => $post['password'],
                 ]);
@@ -70,7 +70,7 @@ class LoginAction
             } catch (Exception $e) {
                 $data['error'] = 'Some error occured';
             }
-        }
+        }        
 
         return new HtmlResponse($this->template->render('hkt/expressive-auth::login', $data));
     }
